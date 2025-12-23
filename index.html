@@ -5,236 +5,69 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Undying Darkness</title>
 
-  <!-- BASIC META -->
-  <meta name="description" content="Official website of the black metal band Undying Darkness." />
-
   <style>
-    /* --------------------
-       CUSTOM FONT
-    -------------------- */
-    @font-face {
-      font-family: "BlackMetalWarrior";
-      src: url("fonts/xxii-black-metal-warrior.woff2") format("woff2"),
-           url("fonts/xxii-black-metal-warrior.woff") format("woff");
-      font-weight: normal;
-      font-style: normal;
-    }
+    /* RESET */
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family: "Georgia", serif; background-color:#050505; color:#d0d0d0; line-height:1.6; }
+    a { color:#fff; font-weight:bold; text-decoration:none; transition:color 0.3s; }
+    a:hover { color:#c0c0c0; }
+    img { max-width:100%; display:block; }
 
-    /* --------------------
-       BACKGROUND TEXTURE
-    -------------------- */
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      background: url("images/noise-texture.png") repeat;
-      opacity: 0.08;
-      pointer-events: none;
-      z-index: -1;
-    }
+    /* HEADER */
+    header { min-height:100vh; background:transparent; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; padding:2rem; }
+    .logo { max-width:95%; width:1350px; margin-bottom:1.5rem; filter: drop-shadow(0 0 15px rgba(0,0,0,0.8)); }
+    header p { max-width:800px; font-size:1.4rem; letter-spacing:0.15em; text-transform:uppercase; opacity:0.85; }
 
-    /* --------------------
-       FOG OVERLAY
-    -------------------- */
-    .fog {
-      position: fixed;
-      inset: 0;
-      background: url("images/fog.png") repeat-y;
-      background-size: cover;
-      opacity: 0.15;
-      animation: drift 120s linear infinite;
-      pointer-events: none;
-      z-index: 5;
-      mix-blend-mode: screen;
-    }
+    /* FOG */
+    .fog { position:fixed; inset:0; background:url("images/fog.png") repeat-y; background-size:cover; opacity:0.15; animation:drift 120s linear infinite; pointer-events:none; z-index:5; mix-blend-mode:screen; }
+    @keyframes drift { from { background-position:0 100%; } to { background-position:0 -2000px; } }
 
-    @keyframes drift {
-      from { background-position: 0 100%; }
-      to { background-position: 0 -2000px; }
-    }
-      to { background-position: -4000px 0; }
-    }
+    /* NAV */
+    nav { position:fixed; top:0; left:0; width:100%; background:rgba(0,0,0,0.9); border-bottom:1px solid #111; z-index:1000; }
+    nav ul { display:flex; justify-content:center; list-style:none; gap:2rem; padding:0.5rem 1rem; transition:max-height 0.3s ease; }
+    nav li { margin:0; }
 
-    /* --------------------
-       RESET + BASICS
-    -------------------- */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    /* BURGER MENU */
+    .burger { display:none; cursor:pointer; flex-direction:column; justify-content:space-around; width:30px; height:25px; margin:10px; }
+    .burger div { width:30px; height:3px; background:#fff; }
 
-    body {
-      font-family: "Georgia", "Times New Roman", serif;
-      background-color: #050505;
-      background-image: radial-gradient(circle at top, #111 0%, #000 70%);
-      color: #d0d0d0;
-      line-height: 1.6;
-    }
+    /* SECTIONS */
+    section { padding:4rem 2rem; max-width:1000px; margin:0 auto; scroll-margin-top:80px; }
+    section h2 { text-transform:uppercase; letter-spacing:0.2em; margin-bottom:2rem; font-size:1.8rem; border-bottom:1px solid #222; padding-bottom:0.5rem; }
 
-    a {
-      color: #ffffff;
-      font-weight: bold;
-      text-decoration: none;
-      transition: color 0.3s ease;
-    }
+    /* MUSIC / SHOWS / GALLERY */
+    .music ul,.shows ul { list-style:none; }
+    .music li,.shows li { padding:1rem 0; border-bottom:1px solid #111; }
+    .music span { display:block; font-size:0.9rem; opacity:0.7; }
+    .gallery { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:1rem; }
+    .gallery div { background:#0a0a0a; border:1px solid #111; height:200px; display:flex; align-items:center; justify-content:center; font-size:0.9rem; opacity:0.6; }
 
-    a:hover {
-      color: #c0c0c0;
-    }
+    /* FOOTER */
+    footer { text-align:center; padding:2rem; border-top:1px solid #111; font-size:0.8rem; opacity:0.6; }
 
-    img {
-      max-width: 100%;
-      display: block;
-    }
-
-    /* --------------------
-       LAYOUT
-    -------------------- */
-    header {
-      min-height: 100vh;
-      background: transparent;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 2rem;
-    }
-
-    .logo {
-      max-width: 95%;
-      width: 1350px;
-      margin-bottom: 1.5rem;
-      filter: drop-shadow(0 0 15px rgba(0,0,0,0.8));
-    }
-
-    @media (max-width: 600px) {
-      .logo {
-        width: 90%;
-      }
-    }
-
-    header p {
-      max-width: 800px;
-      font-size: 1.4rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      opacity: 0.85;
-    }
-
-    nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      background: rgba(0, 0, 0, 0.9);
-      border-bottom: 1px solid #111;
-      z-index: 1000;
-    }
-
-    nav ul {
-      display: flex;
-      justify-content: center;
-      list-style: none;
-      gap: 2rem;
-      padding: 0.5rem 1rem;
-    }
-
-    section {
-      scroll-margin-top: 80px;
-      padding: 4rem 2rem;
-      max-width: 1000px;
-      margin: 0 auto;
-    }
-
-    section h2 {
-      text-transform: uppercase;
-      letter-spacing: 0.2em;
-      margin-bottom: 2rem;
-      font-size: 1.8rem;
-      border-bottom: 1px solid #222;
-      padding-bottom: 0.5rem;
-    }
-
-    /* --------------------
-       SECTIONS
-    -------------------- */
-    .about p {
-      margin-bottom: 1rem;
-    }
-
-    .music ul,
-    .shows ul {
-      list-style: none;
-    }
-
-    .music li,
-    .shows li {
-      padding: 1rem 0;
-      border-bottom: 1px solid #111;
-    }
-
-    .music span {
-      display: block;
-      font-size: 0.9rem;
-      opacity: 0.7;
-    }
-
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1rem;
-    }
-
-    .gallery div {
-      background: #0a0a0a;
-      border: 1px solid #111;
-      height: 200px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.9rem;
-      opacity: 0.6;
-    }
-
-    /* --------------------
-       FOOTER
-    -------------------- */
-    footer {
-      text-align: center;
-      padding: 2rem;
-      border-top: 1px solid #111;
-      font-size: 0.8rem;
-      opacity: 0.6;
-    }
-
-    /* --------------------
-       RESPONSIVE
-    -------------------- */
-    @media (max-width: 600px) {
-      nav ul {
-        flex-direction: column;
-        gap: 1rem;
-      }
+    /* RESPONSIVE */
+    @media(max-width:768px){
+      nav ul { flex-direction:column; max-height:0; overflow:hidden; }
+      nav ul.active { max-height:500px; }
+      .burger { display:flex; }
     }
   </style>
 </head>
-
 <body>
 
-  <!-- ATMOSPHERIC FOG -->
   <div class="fog"></div>
 
-    <!-- HERO -->
   <header id="home">
-    <!-- Band logo -->
     <img src="images/headerlogo.png" alt="Undying Darkness logo" class="logo" />
     <p>Music from the Abyss</p>
   </header>
 
-  <!-- NAV -->
   <nav>
+    <div class="burger" onclick="document.querySelector('nav ul').classList.toggle('active')">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
     <ul>
       <li><a href="#about">About</a></li>
       <li><a href="#music">Music</a></li>
@@ -244,24 +77,18 @@
     </ul>
   </nav>
 
-  <!-- ABOUT -->
   <section id="about" class="about">
     <h2>About</h2>
     <p>Undying Darkness is a Vienna-based melodic black metal inspired by the second wave of black metal. While remaining true to these influences, we push the boundaries of the genre with captivating orchestral passages, innovative song writing and unusual variety. Our debut The Eternal Abyss is a self-produced concept album that delves into the multifaceted nature of Death, exploring it from diverse musical and lyrical perspectives, while retaining a distinct and consistent sound.</p>
   </section>
 
-  <!-- MUSIC -->
   <section id="music" class="music">
     <h2>Music</h2>
     <ul>
-      <li>
-        <strong>The Eternal Abyss</strong>
-        <span>2025 – E.A.R.</span>
-      </li>
+      <li><strong>The Eternal Abyss</strong><span>2025 – E.A.R.</span></li>
     </ul>
   </section>
 
-  <!-- SHOWS -->
   <section id="shows" class="shows">
     <h2>Shows</h2>
     <ul>
@@ -270,7 +97,6 @@
     </ul>
   </section>
 
-  <!-- GALLERY -->
   <section id="gallery">
     <h2>Gallery</h2>
     <div class="gallery">
@@ -280,16 +106,11 @@
     </div>
   </section>
 
-  <!-- CONTACT -->
   <section id="contact">
     <h2>Contact</h2>
-    <p>
-      Booking / Label / Press:<br />
-      <a href="mailto:contact@undyingdarkness.com">contact@undyingdarkness.com</a>
-    </p>
+    <p>Booking / Label / Press:<br><a href="mailto:contact@undyingdarkness.com">contact@undyingdarkness.com</a></p>
   </section>
 
-  <!-- FOOTER -->
   <footer>
     <p>© Undying Darkness – All rights reserved.</p>
   </footer>
