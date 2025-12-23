@@ -24,7 +24,7 @@
 
     /* NAV */
     nav { position:fixed; top:0; left:0; width:100%; background:rgba(0,0,0,0.9); border-bottom:1px solid #111; z-index:1000; }
-    nav ul { display:flex; justify-content:center; list-style:none; gap:2rem; padding:0.5rem 1rem; transition:max-height 0.3s ease; }
+    nav ul { display:flex; justify-content:flex-end; align-items:center; list-style:none; gap:2rem; padding:0.5rem 1rem; transition:max-height 0.3s ease; }
     nav li { margin:0; }
 
     /* BURGER MENU */
@@ -36,9 +36,17 @@
     section h2 { text-transform:uppercase; letter-spacing:0.2em; margin-bottom:2rem; font-size:1.8rem; border-bottom:1px solid #222; padding-bottom:0.5rem; }
 
     /* MUSIC / SHOWS / GALLERY */
-    .music ul,.shows ul { list-style:none; }
-    .music li,.shows li { padding:1rem 0; border-bottom:1px solid #111; }
-    .music span { display:block; font-size:0.9rem; opacity:0.7; }
+    .music ul,.shows ul { list-style:none; display:flex; flex-direction:column; gap:0.3rem; }
+    .music li,.shows li { display:flex; flex-direction:column; align-items:flex-start; padding:0.5rem 0; border-bottom:1px solid #111; }
+    .music .album-info { display:flex; flex-direction:row; align-items:flex-start; justify-content:space-between; width:100%; }
+    .music .album-info div { display:flex; flex-direction:column; }
+    .music span { font-size:0.9rem; opacity:0.7; margin-top:0.2rem; }
+    .music img { max-width:150px; margin-left:20px; }
+    .music audio { margin-top:0.5rem; width:100%; }
+    .music .tracklist { margin-top:0.5rem; font-size:0.9rem; opacity:0.8; cursor:pointer; }
+    .music .tracklist li { margin-bottom:0.1rem; }
+    .track-instruction { font-size:0.9rem; color:#aaa; margin-top:0.5rem; }
+
     .gallery { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:1rem; }
     .gallery div { background:#0a0a0a; border:1px solid #111; height:200px; display:flex; align-items:center; justify-content:center; font-size:0.9rem; opacity:0.6; }
 
@@ -50,6 +58,8 @@
       nav ul { flex-direction:column; max-height:0; overflow:hidden; }
       nav ul.active { max-height:500px; }
       .burger { display:flex; }
+      .music .album-info { flex-direction:column; align-items:flex-start; }
+      .music img { margin-left:0; margin-top:10px; max-width:100%; }
     }
   </style>
 </head>
@@ -80,21 +90,51 @@
   <section id="about" class="about">
     <h2>About</h2>
     <p>Undying Darkness is a Vienna-based melodic black metal inspired by the second wave of black metal. While remaining true to these influences, we push the boundaries of the genre with captivating orchestral passages, innovative song writing and unusual variety. Our debut The Eternal Abyss is a self-produced concept album that delves into the multifaceted nature of Death, exploring it from diverse musical and lyrical perspectives, while retaining a distinct and consistent sound.</p>
+    <h3>Band Members</h3>
+    <ul>
+      <li>Culter: Vocals, Bass</li>
+      <li>Skrämmander: Guitars, Synth</li>
+      <li>Malkreatür: Drums, Synth</li>
+    </ul>
   </section>
 
   <section id="music" class="music">
     <h2>Music</h2>
     <ul>
-      <li><strong>The Eternal Abyss</strong><span>2025 – E.A.R.</span></li>
+      <li>
+        <div class="album-info">
+          <div>
+            <strong>The Eternal Abyss</strong>
+            <span>2025 – E.A.R.01 Eternal Abyss Records</span>
+            <audio id="player" controls>
+              <source src="audio/01 - Undying Darkness.mp3" type="audio/mpeg">
+              Your browser does not support the audio element.
+            </audio>
+            <p class="track-instruction">Click on a track below to listen to it</p>
+            <p id="currentTrack" style="margin-top:0.5rem; font-size:0.9rem; color:#ccc;">Now Playing: None</p>
+            <ol id="tracklist" class="tracklist">
+              <li data-src="audio/01 - Undying Darkness.mp3">01 - Undying Darkness</li>
+              <li data-src="audio/02 - Destroyer of Worlds.mp3">02 - Destroyer of Worlds</li>
+              <li data-src="audio/03 - Dustbiter.mp3">03 - Dustbiter</li>
+              <li data-src="audio/04 - In Chaos Triumphant.mp3">04 - In Chaos Triumphant</li>
+              <li data-src="audio/05 - Ex profundis.mp3">05 - Ex profundis</li>
+              <li data-src="audio/06 - ...for the Gods so Dislike to Be Known among Men.mp3">06 - ...for the Gods so Dislike to Be Known among Men</li>
+              <li data-src="audio/07 - Into the End.mp3">07 - Into the End</li>
+              <li data-src="audio/08 - Darkness Be My Guide.mp3">08 - Darkness Be My Guide</li>
+              <li data-src="audio/09 - The Eternal Abyss Beckons.mp3">09 - The Eternal Abyss Beckons</li>
+              <li data-src="audio/10 - Ground to the Dust from whence Thou Camest.mp3">10 - Ground to the Dust from whence Thou Camest</li>
+              <li data-src="audio/11 - Violence, Death and Bliss.mp3">11 - Violence, Death and Bliss</li>
+            </ol>
+          </div>
+          <img src="images/TEA_cover.jpg" alt="The Eternal Abyss cover" />
+        </div>
+      </li>
     </ul>
   </section>
 
   <section id="shows" class="shows">
     <h2>Shows</h2>
-    <ul>
-      <li>2025-03-14 – Vienna – Venue Name</li>
-      <li>2025-05-02 – Graz – Underground Club</li>
-    </ul>
+    <p>No upcoming shows scheduled.</p>
   </section>
 
   <section id="gallery">
@@ -114,6 +154,29 @@
   <footer>
     <p>© Undying Darkness – All rights reserved.</p>
   </footer>
+
+  <script>
+    const player = document.getElementById('player');
+    const currentTrack = document.getElementById('currentTrack');
+    const tracks = document.querySelectorAll('#tracklist li');
+
+    tracks.forEach(track => {
+      track.addEventListener('click', () => {
+        const src = track.getAttribute('data-src');
+        player.src = src;
+        player.play();
+        currentTrack.textContent = 'Now Playing: ' + track.textContent;
+      });
+    });
+
+    player.addEventListener('pause', () => {
+      currentTrack.textContent = 'Paused: ' + tracks[Array.from(tracks).findIndex(t => t.getAttribute('data-src') === player.src)].textContent;
+    });
+
+    player.addEventListener('ended', () => {
+      currentTrack.textContent = 'Now Playing: None';
+    });
+  </script>
 
 </body>
 </html>
